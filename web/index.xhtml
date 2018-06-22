@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Banco Imobiliario - Projeto Interdisciplinar JAVA</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:panelGrid columns="2">
+                <h:outputLabel for="apelido" value="Apelido: "></h:outputLabel>
+                <p:inputText id="apelido" value="#{jogadorBean.apelidoJogador}"></p:inputText>
+                <h:outputLabel for="senha" value="Senha: "></h:outputLabel>
+                <p:inputText id="senha" value="#{jogadorBean.senhaJogador}"></p:inputText>
+                <p:commandButton value="Login" action="#{jogadorBean.login()}"></p:commandButton>
+                <p:commandButton value="Cadastro" action="/cadastro.xhtml"></p:commandButton>
+            </p:panelGrid>   
+            <p:messages id="messages" showDetail="true" closable="true" autoUpdate="true">
+            </p:messages> 
+        </h:form>
+    </h:body>
+</html>

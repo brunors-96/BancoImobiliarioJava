@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Banco Imobiliario - Projeto Interdisciplinar JAVA</title>
+    </h:head>
+    <h:body>
+        <h:form>  
+            <p:toolbar>
+                <f:facet name="left">
+                    <h:outputLabel for="apelido" value="#{jogadorBean.apelidoJogador}"></h:outputLabel>
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                    </span>
+                    <p:commandButton type="button" title="Save" icon="ui-icon-disk" />
+                    <p:commandButton type="button" title="Delete" icon="ui-icon-trash" />
+                    <p:commandButton type="button" title="Print" icon="ui-icon-print" />
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton type="button" title="Sair" value="Sair" icon="ui-icon-extlink" action="#{partidaBean.sair()}"/>
+                </f:facet>
+            </p:toolbar>
+            <br/>            
+            <h:panelGrid columns="2">
+                <p:outputLabel for="nomeJogo" value="Nome do Jogo: "></p:outputLabel>
+                <p:inputText id="nomeJogo" value=""></p:inputText>                
+            </h:panelGrid>                                   
+            <h:panelGrid columns="2">
+                <p:outputLabel for="pino" value="Pinos: " />
+                <p:selectOneRadio id="pino" value="#{partidaBean.pino}"  layout="grid" columns="3">
+                    <f:selectItems value="#{partidaBean.pinos}" var="c" itemLabel="#{pino}" itemValue="#{pino}"/>
+                </p:selectOneRadio>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
