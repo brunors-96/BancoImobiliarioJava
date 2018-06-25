@@ -24,19 +24,41 @@ public class PartidaDao
 {
 
     // Metodo para inserir um jogador no banco
-    public boolean cadastrarPartida(JogadorModel jogador)
+    public boolean cadastrarPartida(String pApelido, String pNomeJogo, String pPino)
+    {
+        String partida = pNomeJogo;
+        String apelidoJogador = pApelido;
+        String Pino = pPino;
+        try
+        {
+            Connection connection = MySQLConnection.getConexao();
+            String sql = "SELECT criarPartida(?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, pApelido);
+            statement.setString(2, pNomeJogo);
+            statement.setString(3, pPino);
+            ResultSet rs = statement.executeQuery();
+            MySQLConnection.fecharConexao();
+            if (rs == null)
+            {
+                return false;
+            }
+            return true;
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(PartidaDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public boolean cadastrarNomePartida(String pNomeJogo)
     {
         try
         {
             Connection connection = MySQLConnection.getConexao();
-            String sql = "INSERT INTO tb_Jogador ( jognome,"
-                    + "jogsenha, jognick)"
-                    + "VALUES (?, ?, ?)";
-
+            String sql = "insert into tb_Partida (parnome) values(?)";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, jogador.getNomeJogador());
-            statement.setString(2, jogador.getSenhaJogador());
-            statement.setString(3, jogador.getApelidoJogador());
+            statement.setString(1, pNomeJogo);
             statement.executeUpdate();
             MySQLConnection.fecharConexao();
             return true;
@@ -62,7 +84,7 @@ public class PartidaDao
             if (rs == null)
             {
                 MySQLConnection.fecharConexao();
-                
+
                 return false;
             } else
             {

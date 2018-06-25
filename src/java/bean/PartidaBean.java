@@ -5,11 +5,15 @@
  */
 package bean;
 
+import dao.JogadorDao;
+import dao.PartidaDao;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import model.JogadorModel;
 import model.PartidaModel;
 import model.PinoModel;
@@ -20,13 +24,14 @@ import model.PinoModel;
  */
 @SessionScoped
 @ManagedBean
-public class PartidaBean {
+public class PartidaBean extends JogadorBean
+{
 
     private String pino;
     private List<String> pinos;
     private String nomePartida;
     private PartidaModel partida = new PartidaModel();
-    private PinoModel pinoModel = new PinoModel();
+    private PinoModel pinoModel = new PinoModel();  
     
     @PostConstruct
     public void init() {
@@ -84,13 +89,30 @@ public class PartidaBean {
     {
         this.pinoModel = pinoModel;
     }
-    
-    public String criarJogo(String pNomeJogo)
-    {
-        String nomeJogo = pNomeJogo;
-        String pino = getPino();
         
-        return null;
+    public void criarPartida(String pApelido, String pNomeJogo, String pPino)
+    {
+        String partida = pNomeJogo;
+        String apelidoJogador = pApelido;
+        String Pino = pPino;
+        
+        boolean criaNomePartida = new PartidaDao().cadastrarNomePartida(partida);
+        boolean criaPartida = new PartidaDao().cadastrarPartida(apelidoJogador, partida, Pino);
+        if (criaPartida == true && criaNomePartida == true)
+        {
+            FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage(
+                            FacesMessage.SEVERITY_INFO, "SUCESSO!",
+                            "Partida Criada"));
+
+        } else
+        {
+            FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "FALHA!",
+                            "Falha ao criar a partida"));
+        }
+        
     }
     public String sair()
     {
